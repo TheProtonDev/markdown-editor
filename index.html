@@ -1,0 +1,66 @@
+<!--
+MIT License
+
+Copyright (c) [2022] [TheProtonDev]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Proton's Markdown Editor</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="Markdown Editor">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+
+    <link rel="apple-touch-icon" href="icon.png">
+
+    <!-- Styling -->
+    <link rel="stylesheet" href="assets/style.css">
+    <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+<script defer src="assets/script.js"></script>
+<h1>Proton's Markdown Editor</h1>
+<div>
+    <!--  TODO:
+
+    Add both a save as HTML and Markdown button:
+    <button>Save Markdown file</button><br>
+
+    Add the rest of the markdown language, currently only supports header 1 and 2 as well as plaintext
+
+    Styling needs some work but I'm putting that off till last minute since I enjoy backend much much more
+
+    Fix iframe not listening to style rules
+
+    !-->
+    <label for="markdownEditor"></label><textarea id="markdownEditor" rows="45"
+                                                  oninput="parseChanges()"># Hello World</textarea>
+</div>
+<iframe id="markdownPreview" srcdoc="<h1>Hello World</h1>"></iframe>
+
+</body>
+
