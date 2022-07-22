@@ -23,42 +23,71 @@ SOFTWARE.
 -->
 
 <!doctype html>
+
 <head>
     <meta charset="utf-8">
-    <title>Proton's Markdown Editor</title>
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta property="og:title" content="Markdown Editor">
-    <meta property="og:type" content="">
-    <meta property="og:url" content="">
-    <meta property="og:image" content="">
 
-    <link rel="apple-touch-icon" href="icon.png">
+    <!-- HTML Meta Tags -->
+    <title>Proton's Markdown Editor</title>
+    <meta name="description"
+        content="Just a fun little project I'm doing for practice and to burn time, name is pretty self explanatory">
+
+    <!-- Opengraph Meta Tags -->
+    <meta property="og:url" content="https://theprotondev.github.io/markdown-editor/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Proton's Markdown Editor">
+    <meta property="og:description"
+        content="Just a fun little project I'm doing for practice and to burn time, name is pretty self explanatory">
+    <meta property="og:image"
+        content="https://opengraph.githubassets.com/bfe99c3308a380735ae6ff900833eb05169de5d38f56e9c2dee02af5b3a0a8f3/TheProtonDev/markdown-editor">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="theprotondev.github.io">
+    <meta property="twitter:url" content="https://theprotondev.github.io/markdown-editor/">
+    <meta name="twitter:title" content="Proton's Markdown Editor">
+    <meta name="twitter:description"
+        content="Just a fun little project I'm doing for practice and to burn time, name is pretty self explanatory">
+    <meta name="twitter:image"
+        content="https://opengraph.githubassets.com/bfe99c3308a380735ae6ff900833eb05169de5d38f56e9c2dee02af5b3a0a8f3/TheProtonDev/markdown-editor">
+
+
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+    <link crossorigin="use-credentials" rel="manifest" href="assets/manifest.json">
 
     <!-- Styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/style.css">
     <meta name="theme-color" content="#fafafa">
 </head>
 
 <body>
-<script defer src="assets/script.js"></script>
-<h1>Proton's Markdown Editor</h1>
-<!--  TODO:
+    <script defer src="assets/script.js"></script>
+    <!--  TODO:
 
 Add both a save as HTML and Markdown button:
 <button>Save Markdown file</button><br>
 
-Add the rest of the markdown language, currently only supports header 1 and 2 as well as plaintext
+Add the rest of the markdown language, currently only supports headers as well as plaintext
 
-Styling needs some work but I'm putting that off till last minute since I enjoy backend much much more
+Styling still needs some work but everything is responsive as far as I've tested so far
 
-Fix iframe not listening to style rules
+Only responsive styling issue I need to fix right now at least is the columns not being center on some screen sizes
+
+Troubleshoot why iframe text color css rule won't cooperate, until then both textboxes will be white (sorry dark mode lovers)
 
 !-->
-<textarea id="markdownEditor" oninput="parseChanges()"># Hello World</textarea>
-<iframe class="preview" id="markdownPreview" srcdoc="<h1>Hello World</h1>"></iframe>
+    <header>Proton's Markdown Editor</header>
+    <div class="row">
+        <div class="column">
+            <textarea id="markdownEditor" oninput="parseChanges()"># Hello World</textarea>
+        </div>
+        <div class="column">
+            <iframe title="Markdown Output Preview Box" class="preview" id="markdownPreview" srcdoc="<h1>Hello World</h1>"></iframe>
+        </div>
+    </div>
 </body>
-

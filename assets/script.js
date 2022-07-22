@@ -25,44 +25,54 @@ const alphabet_and_special_chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQR
 const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const splitLines = str => str.split(/\r?\n/);
 
-function isBolded(markdownCode){
+function isBolded(markdownCode) {
     // TODO: Get this to work as expected upon the input of 2 or more bolded words
-    let asterisksFound = []
-    for (let charIndex in markdownCode){
+    let asterisksFound = [];
+    let grabAsterisk = true;
+    for (let charIndex in markdownCode) {
         let char = markdownCode[charIndex];
-        if (char === "*"){
-            asterisksFound.push(charIndex)
+        if (char === "*") {
+            if (grabAsterisk) {
+                console.log("Test");
+                asterisksFound.push(charIndex);
+                grabAsterisk = false;
+            }
+            else if (!grabAsterisk) {
+                grabAsterisk = true;
+            }
         }
     }
-    let numToAdd = 0
-    for (let i = 2; i < asterisksFound.length / 2; i++){
-        if (asterisksFound.length % 4 === 0){
+    console.log(asterisksFound);
+    let numToAdd = 0;
+    for (let i = 0; i < 3 / 2; i++) {
+        if (asterisksFound.length % 2 === 0) {
             // Get the position of the first actual character after being prefaced with **
-            let boldBorder1 = asterisksFound[1 + numToAdd]
+            let boldBorder1 = asterisksFound[0 + i];
             // Get the position of the last actual character after being closed with **
-            let boldBorder2 = asterisksFound[3 + numToAdd]
+            let boldBorder2 = asterisksFound[1 + i];
 
-            let textToBeBolded = markdownCode.slice(boldBorder1, boldBorder2)
-            textToBeBolded = textToBeBolded.slice(1, textToBeBolded.length - 1)
-
+            let textToBeBolded = markdownCode.slice(boldBorder1, boldBorder2);
             console.log(textToBeBolded)
-            numToAdd++
+            textToBeBolded = textToBeBolded.slice(1, textToBeBolded.length);
+
+            console.log(textToBeBolded);
+            numToAdd++;
         }
-        console.log(asterisksFound)
+
     }
 }
 
 isBolded("# **Test** 2 **bold2**")
 
 function parseMarkdown(markdownCode) {
-    let isHeader1 = markdownCode.slice(0, 2) === '# ' && alphabet_and_special_chars.search(markdownCode[1]) !== -1
-    let isHeader2 = markdownCode.slice(0, 3) === '## ' && alphabet_and_special_chars.search(markdownCode[2]) !== -1
-    let isHeader3 = markdownCode.slice(0, 4) === '### ' && alphabet_and_special_chars.search(markdownCode[3]) !== -1
-    let isHeader4 = markdownCode.slice(0, 5) === '#### ' && alphabet_and_special_chars.search(markdownCode[4]) !== -1
-    let isHeader5 = markdownCode.slice(0, 6) === '##### ' && alphabet_and_special_chars.search(markdownCode[5]) !== -1
-    let isHeader6 = markdownCode.slice(0, 7) === '###### ' && alphabet_and_special_chars.search(markdownCode[6]) !== -1
-    let isPlaintext = alphabet_and_special_chars.search(markdownCode[0]) !== -1
-    let isEmptyLine = markdownCode === ""
+    let isHeader1 = markdownCode.slice(0, 2) === '# ' && alphabet_and_special_chars.search(markdownCode[1]) !== -1;
+    let isHeader2 = markdownCode.slice(0, 3) === '## ' && alphabet_and_special_chars.search(markdownCode[2]) !== -1;
+    let isHeader3 = markdownCode.slice(0, 4) === '### ' && alphabet_and_special_chars.search(markdownCode[3]) !== -1;
+    let isHeader4 = markdownCode.slice(0, 5) === '#### ' && alphabet_and_special_chars.search(markdownCode[4]) !== -1;
+    let isHeader5 = markdownCode.slice(0, 6) === '##### ' && alphabet_and_special_chars.search(markdownCode[5]) !== -1;
+    let isHeader6 = markdownCode.slice(0, 7) === '###### ' && alphabet_and_special_chars.search(markdownCode[6]) !== -1;
+    let isPlaintext = alphabet_and_special_chars.search(markdownCode[0]) !== -1;
+    let isEmptyLine = markdownCode === "";
     let finalParser = {
         "header1": isHeader1,
         "header2": isHeader2,
@@ -72,24 +82,24 @@ function parseMarkdown(markdownCode) {
         "header6": isHeader6,
         "isPlaintext": isPlaintext,
         "isEmptyLine": isEmptyLine
-    }
+    };
     switch (true) {
         case (finalParser.header1):
-            return `<h1>${markdownCode.slice(2, markdownCode.length)}</h1>`
+            return `<h1>${markdownCode.slice(2, markdownCode.length)}</h1>`;
         case (finalParser.header2):
-            return `<h2>${markdownCode.slice(2, markdownCode.length)}</h2>`
+            return `<h2>${markdownCode.slice(2, markdownCode.length)}</h2>`;
         case (finalParser.header3):
-            return `<h3>${markdownCode.slice(3, markdownCode.length)}</h3>`
+            return `<h3>${markdownCode.slice(3, markdownCode.length)}</h3>`;
         case (finalParser.header4):
-            return `<h4>${markdownCode.slice(4, markdownCode.length)}</h4>`
+            return `<h4>${markdownCode.slice(4, markdownCode.length)}</h4>`;
         case (finalParser.header5):
-            return `<h5>${markdownCode.slice(5, markdownCode.length)}</h5>`
+            return `<h5>${markdownCode.slice(5, markdownCode.length)}</h5>`;
         case (finalParser.header6):
-            return `<h6>${markdownCode.slice(6, markdownCode.length)}</h6>`
+            return `<h6>${markdownCode.slice(6, markdownCode.length)}</h6>`;
         case (finalParser.isPlaintext):
-            return `<p>${markdownCode}</p> <br>`
+            return `<p>${markdownCode}</p> <br>`;
         case (finalParser.isEmptyLine):
-            return `<br>`
+            return `<br>`;
     }
 }
 
@@ -121,7 +131,7 @@ function updatePreview(newContent) {
     let newString = "";
     for (let lineContent in newContent) {
         lineContent = newContent[lineContent];
-        newString += lineContent
+        newString += lineContent;
     }
-    preview.srcdoc = newString
+    preview.srcdoc = newString;
 }
